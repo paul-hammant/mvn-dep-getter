@@ -21,7 +21,9 @@ python3 mvn-dep-getter.py <group:artifact:version>,<group:artifact:version>,...
 python3 mvn-dep-getter.py org.forgerock.cuppa:cuppa:1.7.0,org.example:example-artifact:1.0.0
 ```
 
-            org.forgerock.cuppa:cuppa:1.7.0,org.hamcrest:hamcrest:3.0,com.squareup.okhttp3:okhttp:5.0.0-alpha.14,org.mockito:mockito-core:5.14.2
+### example set
+
+`org.forgerock.cuppa:cuppa:1.7.0,org.hamcrest:hamcrest:3.0,com.squareup.okhttp3:okhttp:5.0.0-alpha.14,org.mockito:mockito-core:5.14.2`
 
 This will generate a temporary POM file, resolve the specified dependencies, and copy them to the `lib` directory.
 
