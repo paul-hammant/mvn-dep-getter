@@ -16,9 +16,9 @@ def create_temp_pom(group_id, artifact_id, version):
     }
     project = ET.Element("project", **namespaces)
     ET.SubElement(project, "modelVersion").text = "4.0.0"
-    ET.SubElement(project, "groupId").text = "group_id"
-    ET.SubElement(project, "artifactId").text = "artifact_id"
-    ET.SubElement(project, "version").text = "version"
+    ET.SubElement(project, "groupId").text = group_id
+    ET.SubElement(project, "artifactId").text = artifact_id
+    ET.SubElement(project, "version").text = version
 
     dependencies = ET.SubElement(project, "dependencies")
     dependency = ET.SubElement(dependencies, "dependency")
