@@ -21,7 +21,11 @@ def create_temp_pom(dependencies):
     ET.SubElement(project, "version").text = "version"
 
     dependenciesXML = ET.SubElement(project, "dependencies")
-    # TODO insert dependencies (passed into method) into dependenciesXML
+    for dep in dependencies:
+        dependency = ET.SubElement(dependenciesXML, "dependency")
+        ET.SubElement(dependency, "groupId").text = dep["dependency"]["group"]
+        ET.SubElement(dependency, "artifactId").text = dep["dependency"]["artifact"]
+        ET.SubElement(dependency, "version").text = dep["dependency"]["version"]
 
     pom_path = tempfile.mktemp(suffix="pom.xml")
     tree = ET.ElementTree(project)
