@@ -11,7 +11,8 @@ def create_temp_pom(group_id, artifact_id, version):
     # Generate POM XML structure
     project = ET.Element("project", xmlns="http://maven.apache.org/POM/4.0.0", 
                          xmlns_xsi="http://www.w3.org/2001/XMLSchema-instance",
-                         xsi_schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd")
+                         xsi="http://www.w3.org/2001/XMLSchema-instance",
+                         schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd")
     ET.SubElement(project, "modelVersion").text = "4.0.0"
     ET.SubElement(project, "groupId").text = "temp.group"
     ET.SubElement(project, "artifactId").text = "temp-artifact"
