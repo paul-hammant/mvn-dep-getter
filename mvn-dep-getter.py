@@ -7,7 +7,7 @@ import xml.etree.ElementTree as ET
 import shutil
 import tempfile
 
-def create_temp_pom(group_id, artifact_id, version):
+def create_temp_pom(dependencies):
     # Generate POM XML structure
     namespaces = {
         "xmlns": "http://maven.apache.org/POM/4.0.0",
@@ -21,10 +21,11 @@ def create_temp_pom(group_id, artifact_id, version):
     ET.SubElement(project, "version").text = "version"
 
     dependencies = ET.SubElement(project, "dependencies")
-    dependency = ET.SubElement(dependencies, "dependency")
-    ET.SubElement(dependency, "groupId").text = group_id
-    ET.SubElement(dependency, "artifactId").text = artifact_id
-    ET.SubElement(dependency, "version").text = version
+    for group_id, artifact_id, version in dependencies:
+        dependency = ET.SubElement(dependencies, "dependency")
+        ET.SubElement(dependency, "groupId").text = group_id
+        ET.SubElement(dependency, "artifactId").text = artifact_id
+        ET.SubElement(dependency, "version").text = version
 
     pom_path = tempfile.mktemp(suffix="pom.xml")
     tree = ET.ElementTree(project)
@@ -37,16 +38,19 @@ def create_temp_pom(group_id, artifact_id, version):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python3 script.py <group:artifact:version>")
+        print("Usage: python3 script.py <group:artifact:version>,<group:artifact:version>,...")
         sys.exit(1)
 
-    gav = sys.argv[1].split(":")
-    if len(gav) != 3:
-        print("Invalid GAV format. Use <group:artifact:version>")
-        sys.exit(1)
+    gavs = sys.argv[1].split(",")
+    dependencies = []
+    for gav in gavs:
+        parts = gav.split(":")
+        if len(parts) != 3:
+            print(f"Invalid GAV format: {gav}. Use <group:artifact:version>")
+            sys.exit(1)
+        dependencies.append(parts)
 
-    group_id, artifact_id, version = gav
-    pom_path = create_temp_pom(group_id, artifact_id, version)
+    pom_path = create_temp_pom(dependencies)
     lib_dir = os.path.abspath("./lib")
 
     try:
