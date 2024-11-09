@@ -10,19 +10,16 @@ import tempfile
 def create_temp_pom(group_id, artifact_id, version):
     # Generate POM XML structure
     project = ET.Element("project", xmlns="http://maven.apache.org/POM/4.0.0", 
-                         xmlns_xsi="http://www.w3.org/2001/XMLSchema-instance",
-                         xsi="http://www.w3.org/2001/XMLSchema-instance",
-                         schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd")
+                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
+                         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd")
     ET.SubElement(project, "modelVersion").text = "4.0.0"
-    ET.SubElement(project, "groupId").text = "temp.group"
-    ET.SubElement(project, "artifactId").text = "temp-artifact"
-    ET.SubElement(project, "version").text = "1.0.0"
+    ET.SubElement(project, "groupId").text = group_id
+    ET.SubElement(project, "artifactId").text = artifact_id
+    ET.SubElement(project, "version").text = version
 
     dependencies = ET.SubElement(project, "dependencies")
     dependency = ET.SubElement(dependencies, "dependency")
-    ET.SubElement(dependency, "groupId").text = group_id
-    ET.SubElement(dependency, "artifactId").text = artifact_id
-    ET.SubElement(dependency, "version").text = version
+    dependency.text = f"{group_id} {artifact_id} {version}"
 
     pom_path = tempfile.mktemp(suffix="pom.xml")
     tree = ET.ElementTree(project)
