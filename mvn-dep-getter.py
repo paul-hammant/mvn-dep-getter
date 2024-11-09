@@ -9,9 +9,12 @@ import tempfile
 
 def create_temp_pom(group_id, artifact_id, version):
     # Generate POM XML structure
-    project = ET.Element("project", xmlns="http://maven.apache.org/POM/4.0.0", 
-                         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance",
-                         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd")
+    namespaces = {
+        "xmlns": "http://maven.apache.org/POM/4.0.0",
+        "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+        "xsi:schemaLocation": "http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+    }
+    project = ET.Element("project", **namespaces)
     ET.SubElement(project, "modelVersion").text = "4.0.0"
     ET.SubElement(project, "groupId").text = group_id
     ET.SubElement(project, "artifactId").text = artifact_id
