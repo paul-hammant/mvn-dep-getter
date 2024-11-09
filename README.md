@@ -27,7 +27,21 @@ python3 mvn-dep-getter.py org.forgerock.cuppa:cuppa:1.7.0,org.example:example-ar
 
 This will generate a temporary POM file, resolve the specified dependencies, and copy them to the `lib` directory.
 
-## How It Works
+## Running via Curl
+
+You can also run the script directly from a GitHub raw endpoint using `curl` and `python3`. Replace `https://example.com/mvn_deps.py` with the actual URL of the raw script.
+
+```bash
+curl -s https://example.com/mvn_deps.py | python3 - <group:artifact:version>,<group:artifact:version>,...
+```
+
+### Example
+
+```bash
+curl -s https://example.com/mvn_deps.py | python3 - org.forgerock.cuppa:cuppa:1.7.0,org.example:example-artifact:1.0.0
+```
+
+This will execute the script directly from the URL, generating a temporary POM file, resolving the specified dependencies, and copying them to the `lib` directory.
 
 1. The script takes a comma-separated list of GAVs as input.
 2. It generates a temporary POM file with the specified dependencies.
