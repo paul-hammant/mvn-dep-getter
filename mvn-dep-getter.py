@@ -16,9 +16,9 @@ def create_temp_pom(group_id, artifact_id, version):
     }
     project = ET.Element("project", **namespaces)
     ET.SubElement(project, "modelVersion").text = "4.0.0"
-    ET.SubElement(project, "groupId").text = group_id
-    ET.SubElement(project, "artifactId").text = artifact_id
-    ET.SubElement(project, "version").text = version
+    ET.SubElement(project, "groupId").text = "group_id"
+    ET.SubElement(project, "artifactId").text = "artifact_id"
+    ET.SubElement(project, "version").text = "version"
 
     dependencies = ET.SubElement(project, "dependencies")
     dependency = ET.SubElement(dependencies, "dependency")
@@ -51,9 +51,10 @@ def main():
 
     try:
         # Run mvn dependency:go-offline
+        subprocess.run(["mvn", "-f", pom_path, "dependency:tree"], check=True)
         subprocess.run(["mvn", "-f", pom_path, "dependency:go-offline"], check=True)
         # Copy all jars to ./lib
-        subprocess.run(["mvn", "-f", pom_path, "dependency:copy-dependencies", f"-DoutputDirectory={lib_dir}", "-DincludeScope=runtime"], check=True)
+        subprocess.run(["mvn", "-f", pom_path, "dependency:copy-dependencies", f"-DincludeTransitive=true", f"-DoutputDirectory={lib_dir}", "-DincludeScope=runtime"], check=True)
         print(f"Dependencies copied to {lib_dir}")
     finally:
         os.remove(pom_path)
