@@ -26,6 +26,10 @@ def create_temp_pom(group_id, artifact_id, version):
     pom_path = tempfile.mktemp(suffix="pom.xml")
     tree = ET.ElementTree(project)
     tree.write(pom_path, encoding="utf-8", xml_declaration=True)
+    # Print the generated POM to stdout
+    with open(pom_path, 'r', encoding='utf-8') as file:
+        print(file.read())
+        
     return pom_path
 
 def main():
