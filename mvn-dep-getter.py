@@ -48,7 +48,7 @@ def main():
         if len(parts) != 3:
             print(f"Invalid GAV format: {gav}. Use <group:artifact:version>")
             sys.exit(1)
-        dependencies.append(parts)
+        dependencies.append({ "dependency": { "group": parts[0], "artifact": parts[1], "version": parts[2] }})
 
     pom_path = create_temp_pom(dependencies)
     lib_dir = os.path.abspath("./lib")
