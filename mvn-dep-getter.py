@@ -53,7 +53,7 @@ def main():
         # Run mvn dependency:go-offline
         subprocess.run(["mvn", "-f", pom_path, "dependency:go-offline"], check=True)
         # Copy all jars to ./lib
-        subprocess.run(["mvn", "-f", pom_path, "dependency:copy-dependencies", f"-DoutputDirectory={lib_dir}"], check=True)
+        subprocess.run(["mvn", "-f", pom_path, "dependency:copy-dependencies", f"-DoutputDirectory={lib_dir}", "-DincludeScope=runtime"], check=True)
         print(f"Dependencies copied to {lib_dir}")
     finally:
         os.remove(pom_path)
