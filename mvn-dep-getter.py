@@ -37,11 +37,12 @@ def create_temp_pom(dependencies):
     return pom_path
 
 def main():
-    if len(sys.argv) != 2:
-        print("Usage: python3 script.py <group:artifact:version>,<group:artifact:version>,...")
+    if len(sys.argv) != 3:
+        print("Usage: python3 script.py <group:artifact:version>,<group:artifact:version>,... <output_directory>")
         sys.exit(1)
 
     gavs = sys.argv[1].split(",")
+    output_directory = sys.argv[2]
     dependencies = []
     for gav in gavs:
         parts = gav.split(":")
@@ -51,7 +52,7 @@ def main():
         dependencies.append({ "dependency": { "group": parts[0], "artifact": parts[1], "version": parts[2] }})
 
     pom_path = create_temp_pom(dependencies)
-    lib_dir = os.path.abspath("./lib")
+    lib_dir = os.path.abspath(output_directory)
 
     try:
         # Run mvn dependency:go-offline
