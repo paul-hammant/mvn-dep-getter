@@ -20,9 +20,7 @@ def create_temp_pom(group_id, artifact_id, version):
     
     dependencies = ET.SubElement(project, "dependencies")
     dependency = ET.SubElement(dependencies, "dependency")
-    ET.SubElement(dependency, "groupId").text = group_id
-    ET.SubElement(dependency, "artifactId").text = artifact_id
-    ET.SubElement(dependency, "version").text = version
+    dependency.text = f"{group_id} {artifact_id} {version}"
 
     pom_path = tempfile.mktemp(suffix="pom.xml")
     tree = ET.ElementTree(project)
