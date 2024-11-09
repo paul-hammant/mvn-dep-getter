@@ -28,13 +28,13 @@ This will generate a temporary POM file, resolve the specified dependencies, and
 You can also run the script directly from a GitHub raw endpoint using `curl` and `python3`. Replace `https://example.com/mvn_deps.py` with the actual URL of the raw script.
 
 ```bash
-curl -s https://example.com/mvn-dep-getter.py | python3 - <group:artifact:version>,<group:artifact:version>,... <output_directory>
+curl -s https://raw.githubusercontent.com/paul-hammant/mvn-dep-getter/refs/heads/main/mvn-dep-getter.py | python3 - <group:artifact:version>,<group:artifact:version>,... <output_directory>
 ```
 
 ### Example
 
 ```bash
-curl -s https://example.com/mvn_deps.py | python3 - org.forgerock.cuppa:cuppa:1.7.0,org.hamcrest:hamcrest:3.0,com.squareup.okhttp3:okhttp:5.0.0-alpha.14,org.mockito:mockito-core:5.14.2,org.seleniumhq.selenium:selenium-java:4.26.0 libs
+curl -s https://raw.githubusercontent.com/paul-hammant/mvn-dep-getter/refs/heads/main/mvn-dep-getter.py | python3 - org.forgerock.cuppa:cuppa:1.7.0,org.hamcrest:hamcrest:3.0,com.squareup.okhttp3:okhttp:5.0.0-alpha.14,org.mockito:mockito-core:5.14.2,org.seleniumhq.selenium:selenium-java:4.26.0 libs
 ```
 
 This will execute the script directly from the URL, generating a temporary POM file, resolving the specified dependencies, and copying them to the `lib` directory.
